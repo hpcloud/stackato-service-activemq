@@ -1,0 +1,8 @@
+  -
+    name: activemq_node
+    config_origin: /s/vcap/services/activemq/config/activemq_node.yml
+    doozer_ephemeral: true
+  -
+    name: activemq_gateway
+    config_origin: /s/vcap/services/activemq/config/activemq_gateway.yml
+    doozer_ephemeral: true

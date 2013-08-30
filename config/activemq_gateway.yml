@@ -1,0 +1,31 @@
+---
+cloud_controller_uri: api.stackato-xxxx.local
+service:
+  name: activemq
+  version: "5.6.0"
+  description: 'ActiveMQ service'
+  plans: ['free']
+  tags: ['activemq', 'activemq-1.0', 'activemqbased', 'demo']
+  timeout: 15
+ip_route: localhost
+#proxy:
+#   host: proxy
+#   port: 8080
+#   keepalive: true
+index: 0
+token: "0xdeadbeef"
+logging:
+  level: debug
+mbus: nats://localhost:4222
+pid: /var/vcap/sys/run/activemq_service.pid
+plan_management:
+  plans:
+    free:
+      low_water: 10
+      high_water: 180
+      #allow_over_provisioning: false
+node_timeout: 10
+# z_interval: 30
+# check_orphan_interval: 3600
+# double_check_orphan_interval: 300
+# max_nats_payload: 1048576
