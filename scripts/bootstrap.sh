@@ -6,7 +6,7 @@ stop-supervisord
 
 # Copy activemq to the services folder and update gems
 cp -R /home/stackato/stackato-activemq-service /s/vcap/services/activemq
-cd /s/vcap/services/activemq && bundle update
+cd /s/vcap/services/activemq && bundle install
 
 # Copy the stackato configuration files to supervisord
 cp /s/vcap/services/activemq/stackato-conf/activemq_* /s/etc/supervisord.conf.d/
