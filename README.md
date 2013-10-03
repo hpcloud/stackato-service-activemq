@@ -15,40 +15,32 @@ If you want to contribute to this service, please feel free to create issues or 
 
 # Deploying onto Stackato
 
-After logging into stackato as the stackato user, run the following commands:
+Log in to the Stackato VM (micro cloud or data service node) as the 'stackato' user, then run the following commands:
 
     cd ~
-    git https://github.com/ActiveState/stackato-activemq-service
+    git clone https://github.com/ActiveState/stackato-activemq-service.git
     cd stackato-activemq-service
 
-    # Edit the 'cloud_controller_uri' to reflect - you guessed it - the Cloud Controller's URI.
-    vim config/activemq_gateway.yml
+Edit the 'cloud_controller_uri' line in 'config/activemq_gateway.yml' to match your own.
 
-    # installs activemq for the stackato user under /opt/activemq.
-    # Also installs any dependencies activemq relies on.
-    # if you want to install a newer/older version of ActiveMQ, change the VERSION variable to your needs.
+The 'install-activemq.sh' script installs activemq in /opt/activemq along with any dependencies it relies on. If you want to install a newer/older version of ActiveMQ, change the VERSION variable to your needs.
+
     sudo ./scripts/install-activemq.sh
 
-    # installs the activemq service to this node
+Install the activemq service to this node:
+
     ./scripts/bootstrap.sh
 
-Bootstrapping runs all of the commands specified within
-[the echo service example]
-(https://github.com/ActiveState/stackato-echoservice/blob/master/README.md#echo-service-for-stackato),
-including installing the service gems, installing to supervisord and kato, loading into Doozer,
-adding the service AUTH token to the Cloud Controller, adding activemq as a role and
-restarting kato. After all this is done, you should be able to see activemq as a
-useable service in the Stackato client.
+Bootstrapping runs all of the commands specified within [the echo service example] (https://github.com/ActiveState/stackato-echoservice/blob/master/README.md#echo-service-for-stackato), including installing the service gems, installing to supervisord and kato, loading into Doozer, adding the service AUTH token to the Cloud Controller, adding activemq as a role and restarting kato. After all this is done, you should be able to see activemq as a useable service in the Stackato client.
 
-You'll also want to edit /s/vcap/common/lib/vcap/services_env.rb to add ACTIVEMQ_URL for all your apps
-that include ActiveMQ:
+You'll also want to edit '/s/vcap/common/lib/vcap/services_env.rb' to add an ACTIVEMQ_URL environment variable to expose to your applications using ActiveMQ:
 
       only_item(vcap_services['activemq']) do |s|
         c = s[:credentials]
         e["ACTIVEMQ_URL"] = "tcp://#{c[:username]}:#{c[:password]}@#{c[:host]}:#{c[:port]}/#{c[:name]}"
       end
 
-once created and logged in using the CLI, you can test out the installation yourself:
+Once created and logged in using the CLI, you can test out the installation yourself:
 
 ```
 $ stackato services
