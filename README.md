@@ -51,7 +51,7 @@ that include ActiveMQ:
 once created and logged in using the CLI, you can test out the installation yourself:
 
 ```
-$ st services
+$ stackato services
 
 ============== System Services ==============
 
@@ -71,9 +71,9 @@ $ st services
 
 =========== Provisioned Services ============
 
-$ st create-service activemq
+$ stackato create-service activemq
 Creating Service [activemq-be13d]: OK
-$ st service activemq-be13d
+$ stackato service activemq-be13d
 
 activemq-be13d
 +-------------+--------------------------------------+
